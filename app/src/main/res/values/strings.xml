@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">网桥隧道</string>
+    <string name="channel_id">tunnel_service</string>
+    <string name="channel_desc">网桥隧道运行中</string>
+    <string name="status_running">运行中</string>
+    <string name="status_stopped">已停止</string>
+    <string name="start">启动</string>
+    <string name="stop">停止</string>
+    <string name="ssh_host">SSH 服务器</string>
+    <string name="ssh_port">SSH 端口</string>
+    <string name="ssh_user">SSH 用户名</string>
+    <string name="ssh_password">SSH 密码</string>
+    <string name="socks_port">SOCKS5 端口 (本地)</string>
+    <string name="http_port">HTTP 代理端口 (本地)</string>
+    <string name="wifi_proxy_hint">其他设备代理设置:</string>
+    <string name="wifi_manual">Wi‑Fi 手动代理: %1$s:%2$s</string>
+    <string name="export_ip">出口 IP: %1$s</string>
+    <string name="connecting">连接中…</string>
+</resources>
