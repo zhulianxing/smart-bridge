@@ -100,6 +100,9 @@ class LicenseActivity : AppCompatActivity() {
             }
         }
 
+        // 尝试从预置文件自动激活（assets/pre_license.txt 格式: CODE|MACHINE_ID）
+        tryAutoActivate(machineId)
+
         // 如果已激活，直接跳转
         if (LicenseManager.isActivated(this)) {
             startActivity(Intent(this, MainActivity::class.java).apply {
@@ -113,6 +116,31 @@ class LicenseActivity : AppCompatActivity() {
         if (TrialManager.isTrialExpired(this)) {
             btnTrial.visibility = View.GONE
             btnTrial.isEnabled = false
+        }
+    }
+
+    /**
+     * 从 assets/pre_license.txt 自动激活
+     * 文件格式: CODE|MACHINE_ID （一行一条，支持通配 * 匹配所有设备）
+     */
+    private fun tryAutoActivate(machineId: String) {
+        if (LicenseManager.isActivated(this)) return
+        try {
+            val content = assets.open("pre_license.txt").bufferedReader().readText()
+            for (line in content.lines()) {
+                val parts = line.trim().split("|")
+                if (parts.size != 2) continue
+                val code = parts[0]
+                val mid = parts[1]
+                if (mid == "*" || mid == machineId) {
+                    if (LicenseManager.activate(this, code)) {
+                        Toast.makeText(this, "✅ 已自动激活", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+            }
+        } catch (_: Exception) {
+            // 无预置文件，正常流程
         }
     }
 
